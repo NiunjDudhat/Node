@@ -12,7 +12,8 @@ const storage = multer.diskStorage({
             cb(error?.message, null)
         }  
     })
-    cb(null, newPath)
+    // cb(null, newPath)
+    cb(null, "/tmp");
 
   },
   filename: function (req, file, cb) {

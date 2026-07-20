@@ -15,7 +15,12 @@ const app = express();
 app.use(cookieParser())
 connectDB();
 googleProvider();
-app.use(cors())
+app.use(cors({
+    origin: 'https://lms-frontend-psi-ochre.vercel.app',
+    // origin: 'http://localhost:5173',
+    optionsSuccessStatus: 200,
+    credentials: true
+}))
 
 app.use(require('express-session')({ secret: process.env.EXPRESS_SESSION_SECRET, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
@@ -23,15 +28,21 @@ app.use(passport.session());
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+    res.send("Server conntect.")
+});
+
 app.use('/', router);
 socketIo();
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server running at http://localhost:${process.env.PORT}`);    
-})
+module.exports = app;
+
+// app.listen(process.env.PORT, () => {
+//     console.log(`Server running at http://localhost:${process.env.PORT}`);    
+// })
 
 
 // (async() => {

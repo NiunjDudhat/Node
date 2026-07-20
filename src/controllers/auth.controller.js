@@ -52,8 +52,8 @@ const login = async (req, res) => {
         await createPDF(docDefinition, `${sUserData?._id}.pdf`)
 
         return res.status(200)
-            .cookie('accessToken', accessToken, { maxAge: 60 * 60 * 1000, secure: true, httpOnly: true })
-            .cookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 1000, secure: true, httpOnly: true })
+            .cookie('accessToken', accessToken, { maxAge: 60 * 60 * 1000, secure: true, httpOnly: true, sameSite: 'None' })
+            .cookie('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 1000, secure: true, httpOnly: true, sameSite: 'None' })
             .json({
                 success: true,
                 data: sUserData,
