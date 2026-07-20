@@ -6,8 +6,7 @@ const upload = require('../middlewares/upload.middleware');
 const auth = require('../middlewares/auth.middleware');
 const router = express.Router();
 
-// router.get('/getAllCategories', auth(["admin", "employee", 'User']), getAllCategoris);
-router.get('/getAllCategories', getAllCategoris);
+router.get('/getAllCategories', auth(["admin", "employee", 'User']), getAllCategoris);
 router.get('/singlecategory/:id', validate(getCategoryByIdSchema), getCategoryByID);
 // router.get('/singlecategory/', validate(getCategoryByIdSchema), getCategoryByID);   // get categoey by id with query
 router.post('/createcategory', auth(["admin", "employee", 'User']), validate(addCategorySchema), upload.single('category_img'), createCategory);
